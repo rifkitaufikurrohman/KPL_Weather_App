@@ -36,6 +36,8 @@ formTodo.addEventListener("submit", async function (e) {
   form.reset();
 });
 
+
+// Begin
 const begin = async () => {
   const data = await fetchData("http://localhost:3000/visits");
 
