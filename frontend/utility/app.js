@@ -5,9 +5,15 @@ import { fetchData } from "./apiFunction.js";
 // fatch data
 
 const WEATHER_ASSETS = [
-  { condition: "Patchy light rain in area with thunder", video: "../../assets/vid/thunder.mp4" },
+  {
+    condition: "Patchy light rain in area with thunder",
+    video: "../../assets/vid/thunder.mp4",
+  },
   { condition: "Light rain shower", video: "../../assets/vid/rain.mp4" },
-  { condition: "Moderate or heavy rain shower", video: "../../assets/vid/rain.mp4" },
+  {
+    condition: "Moderate or heavy rain shower",
+    video: "../../assets/vid/rain.mp4",
+  },
   { condition: "Sunny", video: "../../assets/vid/sunny.mp4" },
   { condition: "Snow", video: "../../assets/vid/snow.mp4" },
   { condition: "Partly cloudy", video: "../../assets/vid/partly-cloudy-2.mp4" },
@@ -17,7 +23,9 @@ const DEFAULT_ASSESTS = "../../assets/vid/sunny.mp4";
 
 async function getVideoCondition(condition) {
   // console.log(WEATHER_ASSETS.)
-  const match = WEATHER_ASSETS.find((e) => e.condition.toLowerCase() === condition.toLowerCase());
+  const match = WEATHER_ASSETS.find(
+    (e) => e.condition.toLowerCase() === condition.toLowerCase()
+  );
 
   // const match = WEATHER_ASSETS.find((e) => {
   //   e.condition.toLowerCase() === condition.toLowerCase();
@@ -26,7 +34,9 @@ async function getVideoCondition(condition) {
 }
 
 async function start(search = "indonesia") {
-  const apiURL = await fetchData(`${config.BASE_URL}/v1/current.json?key=5209e4908b634703875140521243007&q=${search}&aqi=no`);
+  const apiURL = await fetchData(
+    `${config.BASE_URL}/v1/current.json?key=5209e4908b634703875140521243007&q=${search}&aqi=no`
+  );
   const location = await apiURL.location;
   const current = await apiURL.current;
   // change backgorund :
@@ -64,3 +74,34 @@ async function start(search = "indonesia") {
   cloudy.textContent = current.cloud + "%";
   wind.textContent = current.wind_kph + "km/h";
 }
+
+function setLanguage(language) {
+  // Update the current language
+  currentLang = language;
+
+  const elements = document.querySelectorAll("[data-i18n]");
+
+  elements.forEach((element) => {
+    const key = element.getAttribute("data-i18n");
+    const translation = config.translations[currentLang][key];
+
+    if (translation) {
+      element.textContent = translation;
+    }
+  });
+
+  document.documentElement.lang = currentLang;
+
+  const placeholders = document.querySelectorAll("[data-i18n-placeholder]");
+  placeholders.forEach((element) => {
+    const key = element.getAttribute("data-i18n-placeholder");
+    const translation = config.translations[currentLang][key];
+
+    if (translation) {
+      element.setAttribute("placeholder", translation);
+    }
+  });
+}
+
+// Set the initial language
+setLanguage(currentLang);
