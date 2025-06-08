@@ -24,8 +24,8 @@ formTodo.addEventListener("submit", async function (e) {
 
   const body = {
     nama: nama,
-    lokasi_asal: to,
-    lokasi_tujuan: from,
+    lokasi_asal: from,
+    lokasi_tujuan: to,
     tanggal: tanggal,
     catatan: catatan,
   };
