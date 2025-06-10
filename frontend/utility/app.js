@@ -75,6 +75,27 @@ async function start(search = "indonesia") {
   wind.textContent = current.wind_kph + "km/h";
 }
 
+// search
+var coocies = localStorage.getItem("region");
+if (!coocies) {
+  localStorage.setItem("region", config.LOCATION);
+}
+var coocies = localStorage.getItem("region");
+
+const form_search = document.querySelector(".form");
+const input_search = document.getElementById("search");
+
+form_search.addEventListener("submit", (e) => {
+  e.preventDefault();
+  let search = input_search.value;
+  localStorage.setItem("region", search);
+  coocies = localStorage.getItem("region");
+  start(coocies);
+  input_search.value = "";
+});
+
+// translate
+
 function setLanguage(language) {
   // Update the current language
   currentLang = language;
@@ -105,3 +126,26 @@ function setLanguage(language) {
 
 // Set the initial language
 setLanguage(currentLang);
+
+// Set the event listeners for language buttons
+document.querySelectorAll(".language-button-en").forEach((button) => {
+  button.addEventListener("click", () => {
+    const language = button.getAttribute("data-lang");
+    setLanguage(language);
+  });
+});
+
+// Set the event listeners for language buttons
+document.querySelectorAll(".language-button-id").forEach((button) => {
+  button.addEventListener("click", () => {
+    const language = button.getAttribute("data-lang");
+    setLanguage(language);
+  });
+});
+
+setInterval(() => {
+  start(coocies);
+}, 50000);
+start(coocies);
+
+export { start };
