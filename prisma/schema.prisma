@@ -15,12 +15,13 @@ datasource db {
 }
 
 model Visit {
-  id Int @id @default(autoincrement())
-  nama String 
-  lokasi_asal String
-  lokasi_tujuan String
-  tanggal String
-  catatan String
+  id             Int      @id @default(autoincrement())
+  nama           String
+  lokasi_asal    String
+  lokasi_tujuan  String
+  tanggal        DateTime
+  catatan        String
 }
+
 
 
