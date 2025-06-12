@@ -30,12 +30,13 @@ formTodo.addEventListener("submit", async function (e) {
     catatan: catatan,
   };
 
+  console.log("body", body);
+
   await postData("http://localhost:3000/visits", body);
   await begin();
 
   form.reset();
 });
-
 
 // Begin function
 const begin = async () => {
@@ -48,8 +49,12 @@ const begin = async () => {
   table.innerHTML = "";
 
   for (const element of data) {
-    const cuaca_asal = await fetchData(`${config.BASE_URL}/v1/current.json?key=5209e4908b634703875140521243007&q=${element.lokasi_asal}&aqi=no`);
-    const cuaca_tujuan = await fetchData(`${config.BASE_URL}/v1/current.json?key=5209e4908b634703875140521243007&q=${element.lokasi_tujuan}&aqi=no`);
+    const cuaca_asal = await fetchData(
+      `${config.BASE_URL}/v1/current.json?key=5209e4908b634703875140521243007&q=${element.lokasi_asal}&aqi=no`
+    );
+    const cuaca_tujuan = await fetchData(
+      `${config.BASE_URL}/v1/current.json?key=5209e4908b634703875140521243007&q=${element.lokasi_tujuan}&aqi=no`
+    );
 
     const suhu_asal = `${cuaca_asal.current.temp_c}°C`;
     const kondisi_asal = cuaca_asal.current.condition.text;
@@ -112,8 +117,8 @@ const begin = async () => {
         };
 
         await updateData("http://localhost:3000/visits", element.id, body);
-        await begin()
-        formedit.classList.remove("active")
+        await begin();
+        formedit.classList.remove("active");
       });
     });
 

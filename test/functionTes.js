@@ -78,4 +78,6 @@ async function updateData(param, id, data) {
   }
 }
 
+
+
 module.exports = { fetchData, postData, deleteData, getByID, updateData };
