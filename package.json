@@ -5,6 +5,7 @@
   "dependencies": {
     "@prisma/client": "^6.9.0",
     "cors": "^2.8.5",
+
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
@@ -31,4 +32,9 @@
     "url": "https://github.com/rifkitaufikurrohman/KPL_Weather_App/issues"
   },
   "homepage": "https://github.com/rifkitaufikurrohman/KPL_Weather_App#readme"
+
+    "dotenv": "^16.5.0",
+    
+  
+
 }

@@ -12,6 +12,7 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/visits", async (req, res) => {
+
   try {
     // === PROSES SANITASI ===
     const cleanNama = sanitizeHtml(req.body.nama, {
@@ -52,6 +53,7 @@ app.post("/visits", async (req, res) => {
     // === SIMPAN KE DATABASE ===
     const newVisit = await prisma.visit.create({
       data: {
+
         nama: cleanNama,
         lokasi_asal: cleanLokasiAsal,
         lokasi_tujuan: cleanLokasiTujuan,
@@ -64,6 +66,7 @@ app.post("/visits", async (req, res) => {
   } catch (error) {
     res.status(500).json({
       error: error.message,
+
     });
   }
 });
