@@ -30,6 +30,8 @@ formTodo.addEventListener("submit", async function (e) {
     catatan: catatan,
   };
 
+  console.log("body", body);
+
   await postData("http://localhost:3000/visits", body);
   await begin();
 
