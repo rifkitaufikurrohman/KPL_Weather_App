@@ -1,11 +1,15 @@
 {
   "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "babel-jest": "^30.0.0",
+    "jest": "^30.0.0",
     "prisma": "^6.9.0"
   },
   "dependencies": {
     "@prisma/client": "^6.9.0",
     "cors": "^2.8.5",
-
+    "dotenv": "^16.5.0",
     "express": "^5.1.0",
     "express-validator": "^7.2.1",
     "helmet": "^8.1.0",
@@ -32,9 +36,4 @@
     "url": "https://github.com/rifkitaufikurrohman/KPL_Weather_App/issues"
   },
   "homepage": "https://github.com/rifkitaufikurrohman/KPL_Weather_App#readme"
-
-    "dotenv": "^16.5.0",
-    
-  
-
 }
