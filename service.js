@@ -11,64 +11,6 @@ const port = 3000;
 app.use(cors());
 app.use(express.json());
 
-// app.post("/visits", async (req, res) => {
-//   try {
-
-//     const safeNama = xss(req.body.nama);
-//     const safeLokasiAsal = xss(req.body.lokasi_asal);
-//     const safeLokasiTujuan = xss(req.body.lokasi_tujuan);
-//     const safeCatatan = xss(req.body.catatan);
-
-//     // Tanggal ga perlu di-sanitize (Date object)
-
-//     const newVisit = await prisma.visit.create({
-//       data: {
-//         nama,
-//         lokasi_asal,
-//         lokasi_tujuan,
-//         tanggal,
-//         catatan,
-//       },
-//     });
-//     res.json(newVisit);
-//   } catch (error) {
-//     res.status(500).json({
-//       error: error,
-//     });
-//   }
-// });
-
-// app.post("/visits", async (req, res) => {
-//   try {
-//     const nama = xss(req.body.nama);
-//     const lokasi_asal = xss(req.body.lokasi_asal);
-//     const lokasi_tujuan = xss(req.body.lokasi_tujuan);
-//     const tanggal = new Date(req.body.tanggal);
-//     const catatan = xss(req.body.catatan);
-
-//     // Validasi sederhana
-//     if (!nama || !lokasi_asal || !lokasi_tujuan || isNaN(tanggal.getTime())) {
-//       return res
-//         .status(400)
-//         .json({ error: "Field tidak lengkap atau tanggal tidak valid" });
-//     }
-
-//     const newVisit = await prisma.visit.create({
-//       data: {
-//         nama,
-//         lokasi_asal,
-//         lokasi_tujuan,
-//         tanggal,
-//         catatan,
-//       },
-//     });
-//     res.json(newVisit);
-//   } catch (error) {
-//     res.status(500).json({
-//       error: error.message,
-//     });
-//   }
-// });
 app.post("/visits", async (req, res) => {
   try {
     // === PROSES SANITASI ===
