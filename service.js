@@ -1,6 +1,8 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
 const cors = require("cors");
+const xss = require("xss");
+const sanitizeHtml = require("sanitize-html");
 
 const prisma = new PrismaClient();
 const app = express();
@@ -10,21 +12,61 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/visits", async (req, res) => {
-  const { nama, lokasi_asal, lokasi_tujuan, tanggal, catatan } = req.body;
+
   try {
+    // === PROSES SANITASI ===
+    const cleanNama = sanitizeHtml(req.body.nama, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+
+    const cleanLokasiAsal = sanitizeHtml(req.body.lokasi_asal, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+
+    const cleanLokasiTujuan = sanitizeHtml(req.body.lokasi_tujuan, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+
+    const cleanCatatan = sanitizeHtml(req.body.catatan, {
+      allowedTags: [],
+      allowedAttributes: {},
+    });
+
+    // === PROSES TANGGAL ===
+    const tanggal = new Date(req.body.tanggal);
+
+    // === VALIDASI ===
+    if (
+      !cleanNama ||
+      !cleanLokasiAsal ||
+      !cleanLokasiTujuan ||
+      isNaN(tanggal.getTime())
+    ) {
+      return res
+        .status(400)
+        .json({ error: "Field tidak lengkap atau tanggal tidak valid" });
+    }
+
+    // === SIMPAN KE DATABASE ===
     const newVisit = await prisma.visit.create({
       data: {
-        nama,
-        lokasi_asal,
-        lokasi_tujuan,
+
+        nama: cleanNama,
+        lokasi_asal: cleanLokasiAsal,
+        lokasi_tujuan: cleanLokasiTujuan,
         tanggal,
-        catatan,
+        catatan: cleanCatatan,
       },
     });
+
     res.json(newVisit);
   } catch (error) {
     res.status(500).json({
-      error: error,
+      error: error.message,
+
     });
   }
 });
