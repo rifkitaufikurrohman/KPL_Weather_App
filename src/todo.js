@@ -5,11 +5,10 @@ import {
   getByID,
   updateData,
 } from "./apiFunction.js";
-import config from "../../config.js";
+import config from "../config.js";
 
 // todo list
 const formTodo = document.getElementById("todoForm");
-const todoList = document.getElementById("todoList");
 
 formTodo.addEventListener("submit", async function (e) {
   console.log("masuk form");
